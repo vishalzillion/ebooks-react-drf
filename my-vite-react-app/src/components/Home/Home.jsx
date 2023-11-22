@@ -4,6 +4,9 @@ import { useContext } from "react";
 import { UserContext } from '../../Context';
 import Axios from "axios"
 import EditPopup from '../Edit/Edit';
+import { FaSpinner } from 'react-icons/fa'; // Importing a spinner icon from react-icons
+
+
 
 
 
@@ -122,7 +125,7 @@ function Home() {
   };
   const [filteredBooks, setFilteredBooks] = useState([]);
 
-  // Function to filter books based on category
+  
   useEffect(() => {
     setUnfilteredBooks(books);
     setFilteredBooks(books); // Set filteredBooks to all books when books change
@@ -139,8 +142,13 @@ function Home() {
 
 
   useEffect(() => {
-    fetchBooks(currentPage);
-  }, [currentPage]);
+    const timer = setTimeout(() => {
+      fetchBooks(currentPage);
+    }, 2000);
+  
+    return () => clearTimeout(timer); // Cleanup the timer on component unmount or when currentPage changes
+  }, [currentPage, fetchBooks]);
+  
 
   const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
@@ -158,8 +166,15 @@ function Home() {
       {requestStatus && <h4>{requestStatus}</h4>}
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mx-4 mt-8 ">
+        
         {loading ? (
-          <p className="text-center text-gray-700">Loading...</p>
+         <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-blue-200 opacity-75 z-50">
+         <div className="text-center">
+           {/* Loading spinner with Tailwind CSS styling */}
+           <FaSpinner className="animate-spin h-8 w-8 mx-auto text-gray-500" />
+           <p className="text-gray-500 mt-2">Loading...</p>
+         </div>
+       </div>
         ) : error ? (
           <p className="text-center text-red-500">{error}</p>
         ) : filteredBooks.length === 0 ? (
@@ -207,13 +222,17 @@ function Home() {
         
       
       </div>
-      <div className="flex justify-center my-4 mb-80">
-        <button
-          onClick={handlePreviousPage}
-          className="text-blue-700 bg-blue-100 p-2 rounded-lg mr-2 focus:outline-none"
-        >
-          Previous Page
-        </button>
+      {!loading && (
+      <div className="flex justify-center my-4">
+        {currentPage > 1 && (
+          <button
+            onClick={handlePreviousPage}
+            className="text-blue-700 bg-blue-100 p-2 rounded-lg mr-2 focus:outline-none"
+          >
+            Previous Page
+          </button>
+        )}
+        {/* You might need a condition here to hide the "Next Page" button when there's no more data */}
         <button
           onClick={handleNextPage}
           className="text-blue-700 bg-blue-100 p-2 rounded-lg focus:outline-none"
@@ -221,6 +240,7 @@ function Home() {
           Next Page
         </button>
       </div>
+    )}
     </>
   );
 }
