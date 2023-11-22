@@ -1,90 +1,134 @@
-eBooks React App
-This project is a book library web app built with React.
+Ebooks - Library Management App
+Full stack library management web application with React frontend and Django/Django REST Framework backend
+
+Table of Contents
+About
+Tech Stack
+Application Structure
+Frontend Setup
+Key Components
+Starting Development Server
+Backend API Setup
+Database Configuration
+API Endpoints
+Authentication
+Starting API Server
+Deployment
+About
+Ebooks allows users to:
+
+Browse available library books
+Reserve and request books
+Manage their account
+Librarians can manage inventory, book entries etc
+Built using React, Tailwind CSS for the frontend and Django REST Framework for the backend API.
+
+Tech Stack
+Frontend:
+
+React
+React Router
+Tailwind CSS
+Axios
+Backend:
+
+Django
+Django REST Framework
+Postgres Database
+Application Structure
+Copy code
+
+├── frontend
+│   ├── public
+│   ├── src
+│   │   ├── components
+│   │   ├── context
+│   │   ├── pages
+│   │   ├── App.js
+│   │   ├── index.js
+│   ├── package.json
+│   ├── tailwind.config.js
+│   └── ...
+└── backend
+    ├── apps
+    │   ├── books
+    │   ├── accounts
+    │   └── api
+    ├── config
+    ├── manage.py
+    ├── requirements.txt
+    └── ...
+Frontend Setup
+The React frontend application is located in the frontend directory.
 
 Key Components
-App
+App - Routes and site layout
+Home - Display book listings
+Header - Top navigation
+Footer - Site footer links
+Auth Flow - Login/signup pages
+Starting Development Server
+Copy code
 
-Main App component
-Sets up React Router with all app routes and layout
-Client-side routing between pages
-Layout
-
-Shared header and footer
-Checks auth state to display relevant nav links
-Outlet renders child route components
-Header
-
-Top navbar with branding, links, authentication
-Navigation adapts to auth state
-Profile popup shows user details when logged in
-Footer
-
-Site footer with links and subscription form
-Home
-
-Displays book grid with search/filter
-Fetch books from API with loading state
-Book request and edit actions based on user type
-Auth Components
-
-Login, Logout
-Signup and forgot password views
-Handle API calls and updating auth state
-UserContext
-
-Global user state management with Context API
-Persists user data in localStorage
-Common Components
-
-Popups, Loaders, Messages
-Can be reused across views
-Getting Started
-Clone the repo and install dependencies:
-
-bash
-
-
+# Install dependencies  
 npm install
-Run dev server:
 
-bash
+# Start react dev server
+npm start
+The app will run on port 3000 by default - http://localhost:3000
 
+Additional scripts like build, test, and lint are in package.json
 
-npm run dev
-Build app for production:
+Backend API Setup
+The Django and Django REST Framework backend is located in backend directory.
 
-npm run build
+It uses a Postgres database for storing book listings and user accounts data.
 
-
-
-i have used backend api from library-management system which is also pushed so add that also how to install and run the server to access api
-
-VK
-You're right, good call out! Here is an updated section I would add to integrate the necessary backend API setup:
-
-Backend Setup
-This project uses a Django/DRF backend API for database and authentication operations.
-
-The API code is available here: https://github.com/myaccount/library-management
-
-Follow the setup instructions to get the API server running:
+Database Configuration
+Default local development database configuration:
 
 Copy code
 
-cd library-management
+# Local Postgres Database
+DB_HOST=localhost
+DB_NAME=ebooks
+DB_USER=postgres
+DB_PASS=password
+API Endpoints
+Base URL for the API is http://localhost:8000/api
+
+Main endpoints:
+
+/books - Fetch all books
+/books/:id - Get single book
+/books/new - Create new book
+/users - Create and manage user accounts
+/login - Login endpoint for token
+/logout - Invalidate authentication token
+Authentication
+Uses JSON Web Token based authentication powered by simple-jwt.
+
+Login endpoint returns JWT token to be included in Authorization header for authenticated requests.
+
+Starting API Server
+Copy code
+
+# Virtualenv 
 python -m venv env
 source env/bin/activate
-pip install -r requirements.txt
 
-# Run Migrations
+# Install packages
+pip install -r requirements.txt  
+
+# Run database migrations
 python manage.py migrate
 
 # Create admin user
-python manage.py createsuperuser
+python manage.py createsuperuser 
 
-# Start backend server
+# Run development server
 python manage.py runserver
-The React frontend app expects the API server to be running on http://localhost:8000.
+Deployment
+The frontend bundle can be built and served using any static site host like Netlify, Vercel etc.
 
-The API endpoints power user authentication, book CRUD functionality, requests etc.
-
+The Django backend API can be deployed to a server or PaaS like Heroku, AWS Elastic Beanstalk etc.
