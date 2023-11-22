@@ -43,26 +43,19 @@ Clone the repo and install dependencies:
 
 bash
 
-Copy code
 
 npm install
 Run dev server:
 
 bash
 
-Copy code
 
 npm run dev
 Build app for production:
 
-bash
-
-Copy code
-
 npm run build
-Let me know if any sections need additional detail or if you would restructure things! The goal was to summarize the key pieces and how they work together at a high level.
 
-Copy
+
 
 i have used backend api from library-management system which is also pushed so add that also how to install and run the server to access api
 
@@ -95,4 +88,3 @@ The React frontend app expects the API server to be running on http://localhost:
 
 The API endpoints power user authentication, book CRUD functionality, requests etc.
 
-Let me know if any other details need to be included around the backend and API integration! We could document the key endpoints and example requests/responses if useful.# ebooks-react-drf
