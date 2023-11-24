@@ -5,7 +5,7 @@ import { faFacebookF, faTwitter, faInstagram } from '@fortawesome/free-brands-sv
 
 function Footer() {
   return (
-    <footer className="bg-gray-800 text-white py-12 fixed bottom-0 w-full">
+    <footer className="bg-orange-300 text-white py-12 w-full h-52">
     <div className="container mx-auto flex flex-col lg:flex-row justify-between px-4">
         {/* Left Section */}
         <div className="mb-8 lg:mb-0">

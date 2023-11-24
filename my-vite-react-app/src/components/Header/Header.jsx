@@ -15,7 +15,7 @@ export default function Header({ isLoggedIn, username }) {
 
     return (
         <header className="shadow sticky z-50 top-0">
-            <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5">
+            <nav className="bg-orange-300 border-gray-200 px-4 lg:px-6 py-2.5">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                     <Link to="/" className="flex items-center">
                         <div className="flex items-center">
@@ -89,9 +89,11 @@ export default function Header({ isLoggedIn, username }) {
                                                         <Link to="/askquestions" onClick={toggleProfilePopup} className="text-blue-500 hover:underline mb-2 block">
                                                            Ask Questions
                                                         </Link>
+                                                        <hr className="my-2" />
                                                         <Link to="/helpcenter" onClick={toggleProfilePopup} className="text-blue-500 hover:underline mb-2 block">
                                                            Help Center
                                                         </Link>
+                                                        <hr className="my-2" />
                                                         <Link to="/chatting" onClick={toggleProfilePopup} className="text-blue-500 hover:underline mb-2 block">
                                                           Chat with us
                                                         </Link>

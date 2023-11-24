@@ -5,15 +5,15 @@ import { useState,useContext} from 'react';
 import '@sendbird/uikit-react/dist/index.css';
 import { UserContext } from '../../Context';
 
-const App = () => {
+const  Chatting = () => {
 
     const { userData } = useContext(UserContext);
    
-    const APP_ID = process.env.REACT_APP_APP_ID ;
+    const APP_ID = import.meta.env.VITE_APP_ID;   //your sendbird app id goes here
     const USER_ID = userData.username
     const [currentChannelUrl, setCurrentChannelUrl] = useState('');
     const [userList, setUserList] = useState([]);
-    const authToken = process.env.REACT_APP_AUTH_TOKEN 
+    const authToken = import.meta.env.VITE_AUTH_TOKEN; // your sendbird token goes here
     const [selectedUsers, setSelectedUsers] = useState([]);
     
 
@@ -21,7 +21,7 @@ const App = () => {
 
     return (
         <div className="App">
-            <SendBirdProvider appId={APP_ID} userId={USER_ID} theme='dark'>
+            <SendBirdProvider appId={APP_ID} userId={USER_ID} theme='light'>
                 <>
                     <Channel className="channel" channelUrl={currentChannelUrl} />
                     <ChannelList
@@ -37,4 +37,4 @@ const App = () => {
     );
 };
 
-export default App;
+export default Chatting;

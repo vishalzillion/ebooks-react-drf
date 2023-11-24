@@ -142,12 +142,9 @@ function Home() {
 
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      fetchBooks(currentPage);
-    }, 2000);
+    fetchBooks(currentPage);
+  }, [currentPage]);
 
-    return () => clearTimeout(timer); // Cleanup the timer on component unmount or when currentPage changes
-  }, [currentPage, fetchBooks]);
 
 
   const handleNextPage = () => {
@@ -183,13 +180,14 @@ function Home() {
             <div
               key={index}
               className="bg-white rounded-lg shadow-md p-4 transition-transform transform hover:shadow-lg hover:scale-105 duration-300 ease-in-out"
+              style={{ height: '650px' }} // Set a fixed height for the card
             >
               <div className="mb-4">
                 {/* Display the book image */}
                 <img
                   src={book.cover_image} // Assuming the image property holds the URL of the image
                   alt={`Cover of ${book.title}`} // Add alt text for accessibility
-                  className="w-full h-auto rounded-md shadow-md"
+                  className="w-full h-96 object-cover rounded-md shadow-md" // Set a fixed height and use object-cover to ensure images fit within the container
                 />
               </div>
               <h2 className="text-xl font-semibold text-gray-800 mb-2">{book.title}</h2>
@@ -198,24 +196,23 @@ function Home() {
               <p className="text-gray-600 mb-4">Quantity: {book.quantity}</p>
               <p className="text-gray-600 mb-4">status: {book.status}</p>
 
-
               {userData.user_type === 'librarian' ? (
-
                 <button
                   onClick={() => handleBook(book)}
-
-
                   className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg shadow-md focus:outline-none"
                 >
                   Edit
                 </button>
-
               ) : (
-                <button onClick={() => handleBookRequest(book.id)} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md focus:outline-none">
+                <button
+                  onClick={() => handleBookRequest(book.id)}
+                  className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md focus:outline-none"
+                >
                   Request Book
                 </button>
               )}
             </div>
+
           ))
         )}
         {showEditPopup && editedBook && (
@@ -230,7 +227,7 @@ function Home() {
 
       </div>
       {!loading && (
-        <div className="flex justify-center my-4">
+        <div className="flex justify-center my-4 ">
           {currentPage > 1 && (
             <button
               onClick={handlePreviousPage}
