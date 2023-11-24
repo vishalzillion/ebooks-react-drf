@@ -9,11 +9,11 @@ const App = () => {
 
     const { userData } = useContext(UserContext);
    
-    const APP_ID = 'FA4CC3A9-2E8F-4521-A5CE-7E24BD70791B';
+    const APP_ID = process.env.REACT_APP_APP_ID ;
     const USER_ID = userData.username
     const [currentChannelUrl, setCurrentChannelUrl] = useState('');
     const [userList, setUserList] = useState([]);
-    const authToken = '001a15c42b3f50a4ed2db32d3abd9a191be44ac0'
+    const authToken = process.env.REACT_APP_AUTH_TOKEN 
     const [selectedUsers, setSelectedUsers] = useState([]);
     
 
