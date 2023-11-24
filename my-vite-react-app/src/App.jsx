@@ -14,6 +14,7 @@ import Settings from './components/Settings/Settings';
 import Feedback from './components/Feedback/Feedback';
 import AskQuestion from './components/Cart/AskQuestions/AskQuestions';
 import TutorialVideo from './components/HelpCenter/HelpCenter';
+import Chatting from './components/Chatting/Chatting';
 
 function App() {
   return (
@@ -32,6 +33,8 @@ function App() {
           <Route path="feedback" element={<Feedback/>} />
           <Route path="askquestions" element={<AskQuestion />} />
           <Route path="helpcenter" element={<TutorialVideo />} />
+          <Route path="chatting" element={<Chatting />} />
+
           
           
         </Route>

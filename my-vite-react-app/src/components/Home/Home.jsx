@@ -20,7 +20,7 @@ function Home() {
   const [unfilteredBooks, setUnfilteredBooks] = useState([]);
   const [showEditPopup, setShowEditPopup] = useState(false);
   const [editedBook, setEditedBook] = useState(null);
-  const [updateMessage ,setUpdateMessage] = useState(null)
+  const [updateMessage, setUpdateMessage] = useState(null)
 
 
   // const [editBook, setEditBook] = useState(false);
@@ -29,10 +29,10 @@ function Home() {
   const handleBook = (book) => {
     console.log('Selected Book:', book);
     setEditedBook(book);
-    
-     setShowEditPopup(true);// Show the Edit component
+
+    setShowEditPopup(true);// Show the Edit component
   };
-  
+
 
   const handleEditBook = async (editedDetails) => {
     try {
@@ -56,9 +56,9 @@ function Home() {
         }
       });
       setUpdateMessage(response.data.message)
-      setTimeout(()=>{
+      setTimeout(() => {
         setUpdateMessage(null)
-      },3000);
+      }, 3000);
 
       fetchBooks(currentPage);
     } catch (error) {
@@ -66,7 +66,7 @@ function Home() {
       console.error('Error updating book:', error);
       setUpdateMessage(error)
     }
-    
+
   };
 
 
@@ -125,7 +125,7 @@ function Home() {
   };
   const [filteredBooks, setFilteredBooks] = useState([]);
 
-  
+
   useEffect(() => {
     setUnfilteredBooks(books);
     setFilteredBooks(books); // Set filteredBooks to all books when books change
@@ -145,10 +145,10 @@ function Home() {
     const timer = setTimeout(() => {
       fetchBooks(currentPage);
     }, 2000);
-  
+
     return () => clearTimeout(timer); // Cleanup the timer on component unmount or when currentPage changes
   }, [currentPage, fetchBooks]);
-  
+
 
   const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
@@ -164,17 +164,16 @@ function Home() {
     <>
       <SubNavbar filterBooks={filterBooksByCategory} />
       {requestStatus && <h4>{requestStatus}</h4>}
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mx-4 mt-8 ">
-        
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-4 mt-8">
         {loading ? (
-         <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-blue-200 opacity-75 z-50">
-         <div className="text-center">
-           {/* Loading spinner with Tailwind CSS styling */}
-           <FaSpinner className="animate-spin h-8 w-8 mx-auto text-gray-500" />
-           <p className="text-gray-500 mt-2">Loading...</p>
-         </div>
-       </div>
+          <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-blue-200 opacity-75 z-50">
+            <div className="text-center">
+              {/* Loading spinner with Tailwind CSS styling */}
+              <FaSpinner className="animate-spin h-8 w-8 mx-auto text-gray-500" />
+              <p className="text-gray-500 mt-2">Loading...</p>
+            </div>
+          </div>
         ) : error ? (
           <p className="text-center text-red-500">{error}</p>
         ) : filteredBooks.length === 0 ? (
@@ -185,13 +184,21 @@ function Home() {
               key={index}
               className="bg-white rounded-lg shadow-md p-4 transition-transform transform hover:shadow-lg hover:scale-105 duration-300 ease-in-out"
             >
+              <div className="mb-4">
+                {/* Display the book image */}
+                <img
+                  src={book.cover_image} // Assuming the image property holds the URL of the image
+                  alt={`Cover of ${book.title}`} // Add alt text for accessibility
+                  className="w-full h-auto rounded-md shadow-md"
+                />
+              </div>
               <h2 className="text-xl font-semibold text-gray-800 mb-2">{book.title}</h2>
               <p className="text-gray-600 mb-2">Author: {book.author}</p>
               <p className="text-gray-600 mb-2">Genre: {book.genre}</p>
               <p className="text-gray-600 mb-4">Quantity: {book.quantity}</p>
               <p className="text-gray-600 mb-4">status: {book.status}</p>
-           
-             
+
+
               {userData.user_type === 'librarian' ? (
 
                 <button
@@ -204,14 +211,14 @@ function Home() {
                 </button>
 
               ) : (
-              <button onClick={() => handleBookRequest(book.id)} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md focus:outline-none">
-                Request Book
-              </button>
+                <button onClick={() => handleBookRequest(book.id)} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md focus:outline-none">
+                  Request Book
+                </button>
               )}
             </div>
           ))
         )}
-         {showEditPopup && editedBook && (
+        {showEditPopup && editedBook && (
           <EditPopup
             book={editedBook}
             onClose={() => setShowEditPopup(false)}
@@ -219,28 +226,27 @@ function Home() {
             updateMessage={updateMessage}
           />
         )}
-        
-      
+
+
       </div>
       {!loading && (
-      <div className="flex justify-center my-4">
-        {currentPage > 1 && (
+        <div className="flex justify-center my-4">
+          {currentPage > 1 && (
+            <button
+              onClick={handlePreviousPage}
+              className="text-blue-700 bg-blue-100 p-2 rounded-lg mr-2 focus:outline-none"
+            >
+              Previous Page
+            </button>
+          )}
           <button
-            onClick={handlePreviousPage}
-            className="text-blue-700 bg-blue-100 p-2 rounded-lg mr-2 focus:outline-none"
+            onClick={handleNextPage}
+            className="text-blue-700 bg-blue-100 p-2 rounded-lg focus:outline-none"
           >
-            Previous Page
+            Next Page
           </button>
-        )}
-        {/* You might need a condition here to hide the "Next Page" button when there's no more data */}
-        <button
-          onClick={handleNextPage}
-          className="text-blue-700 bg-blue-100 p-2 rounded-lg focus:outline-none"
-        >
-          Next Page
-        </button>
-      </div>
-    )}
+        </div>
+      )}
     </>
   );
 }

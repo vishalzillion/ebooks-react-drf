@@ -141,14 +141,14 @@ function Signup() {
         className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
     </div>
-    <ReCAPTCHA
+    {/* <ReCAPTCHA
         
         ref={recaptchaRef}
         sitekey="6Ld9NBgpAAAAAJKIhYjomZvaF-YNU8kCTnRKIxYl"
         // onChange={handleRecaptchaChange}
         // size="invisible"
         className="bg-gray-300 w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-      />
+      /> */}
     <button
       type="submit"
       className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 mt-5"

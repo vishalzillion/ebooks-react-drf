@@ -92,6 +92,9 @@ export default function Header({ isLoggedIn, username }) {
                                                         <Link to="/helpcenter" onClick={toggleProfilePopup} className="text-blue-500 hover:underline mb-2 block">
                                                            Help Center
                                                         </Link>
+                                                        <Link to="/chatting" onClick={toggleProfilePopup} className="text-blue-500 hover:underline mb-2 block">
+                                                          Chat with us
+                                                        </Link>
                                                         <hr className="my-2" />
                                                         <Link to="/cart" onClick={toggleProfilePopup} className="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none block">
                                                             <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
